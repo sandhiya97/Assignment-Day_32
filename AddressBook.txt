@@ -1,0 +1,321 @@
+Enter password: ************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 32
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++------------------------+
+| Database               |
++------------------------+
+| address_book_services  |
+| employeepayrollservice |
+| information_schema     |
+| mysql                  |
+| performance_schema     |
+| sys                    |
++------------------------+
+6 rows in set (0.19 sec)
+
+mysql> use address_book_services;
+Database changed
+mysql> create table addressbook (id int not null auto_increment, FirstName char(20) not null, LastName char(20) not null, Address char(50) not null, city char(10) not null, State char(10) not null, ZipCode varchar(10) not null, PhoneNum varchar(10) not null, Email varchar(50) not null);
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> create table addressbook (FirstName char(20) not null, LastName char(20) not null, Address char(50) not null, city char(10) not null, State char(10) not null, ZipCode varchar(10) not null, PhoneNum varchar(10) not null, Email varchar(50) not null);
+Query OK, 0 rows affected (0.67 sec)
+
+mysql> desc addressbook;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | char(20)    | NO   |     | NULL    |       |
+| LastName  | char(20)    | NO   |     | NULL    |       |
+| Address   | char(50)    | NO   |     | NULL    |       |
+| city      | char(10)    | NO   |     | NULL    |       |
+| State     | char(10)    | NO   |     | NULL    |       |
+| ZipCode   | varchar(10) | NO   |     | NULL    |       |
+| PhoneNum  | varchar(10) | NO   |     | NULL    |       |
+| Email     | varchar(50) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+8 rows in set (0.10 sec)
+
+
+mysql> create table addressbooks (id int auto_increment not null, FirstName varchar(20) not null, LastName varchar(20) not null, Address varchar(50) not null, city varchar(10) not null, State varchar(10) not null, ZipCode varchar(10) not null, PhoneNum varchar(10) not null, Email varchar(50) not null,primary key(id));
+Query OK, 0 rows affected (0.69 sec)
+
+mysql> select * from addressbooks;
+Empty set (0.36 sec)
+
+mysql> create table addressbooks (id int auto_increment not null, FirstName varchar(20) not null, LastName varchar(20) not null, Address varchar(50) not null, city varchar(10) not null, State varchar(10) not null, ZipCode varchar(10) not null, PhoneNum varchar(10) not null, Email varchar(50) not null,primary key(id));
+ERROR 1050 (42S01): Table 'addressbooks' already exists
+mysql> desc addressbooks;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int         | NO   | PRI | NULL    | auto_increment |
+| FirstName | varchar(20) | NO   |     | NULL    |                |
+| LastName  | varchar(20) | NO   |     | NULL    |                |
+| Address   | varchar(50) | NO   |     | NULL    |                |
+| city      | varchar(10) | NO   |     | NULL    |                |
+| State     | varchar(10) | NO   |     | NULL    |                |
+| ZipCode   | varchar(10) | NO   |     | NULL    |                |
+| PhoneNum  | varchar(10) | NO   |     | NULL    |                |
+| Email     | varchar(50) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+9 rows in set (0.11 sec)
+
+mysql> insert into addressbooks(FirstName, LastName, Address, City, State, ZipCode, PhoneNum, Email) values('Naveen','Kumar','New Road','Sivakasi','Tamil Nadu','626123','789456123','contact@naveen.com');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from addressbooks;
++----+-------------+----------+------------+----------+------------+---------+------------+---------------------+
+| id | FirstName   | LastName | Address    | city     | State      | ZipCode | PhoneNum   | Email               |
++----+-------------+----------+------------+----------+------------+---------+------------+---------------------+
+|  1 | Naveen      | Kumar    | New Road   | Sivakasi | Tamil Nadu | 626123  | 789456123  | contact@naveen.com  |
++----+-------------+----------+------------+----------+------------+---------+------------+---------------------+
+1 row in set (0.04 sec)
+
+mysql> insert into addressbooks(FirstName, LastName, Address, City, State, ZipCode, PhoneNum, Email) values('Hareesh','Raj','Old Road','Virudhunagar','Tamil Nadu','626148','9876543210','contact@hareesh.com');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into addressbooks(FirstName, LastName, Address, City, State, ZipCode, PhoneNum, Email) values('Giri','Dharan','Nowhere','Rajapalayam','Tamil Nadu','626189','1234567890','contact@giri.com');   com');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from addressbooks;
++----+------------------+-----------+------------+---------------+-------------+---------+------------+----------------------+
+| id | FirstName        | LastName  | Address    | city          | State       | ZipCode | PhoneNum   | Email                |
++----+------------------+-----------+------------+---------------+-------------+---------+------------+----------------------+
+|  1 | Naveen           | Kumar     | New Road   | Sivakasi      | Tamil Nadu  | 626123  | 789456123 | contact@naveen.com    |
+|  2 | Hareesh          | Raj       | Old Road   | Virudhunagar  | Tamil Nadu  | 626148  | 9876543210 | contact@hareesh.com  |
+|  3 | Giri             | Dharan    | Nowhere    | Rajapalayam   | Tamil Nadu  | 626189  | 1234567890 | contact@giri.com     |
++----+------------------+-----------+------------+---------------+-------------+---------+------------+----------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into addressbooks(FirstName, LastName, Address, City, State, ZipCode, PhoneNum, Email) values('Karthick','Raj','Everywhere','Kochi','Kerala','561489','3216549870','contact@karthick.com');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from addressbooks;
++----+----------------+----------+------------+--------------+------------+---------+------------+----------------------+
+| id | FirstName      | LastName | Address    | city         | State      | ZipCode | PhoneNum   | Email                |
++----+----------------+----------+------------+--------------+------------+---------+------------+----------------------+
+|  1 | Naveen         | Kumar    | New Road   | Sivakasi     | Tamil Nadu | 626123  | 789456123  | contact@naveen.com   |
+|  2 | Hareesh        | Raj      | Old Road   | Virudhunagar | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com  |
+|  3 | Giri           | Dharan   | Nowhere    | Rajapalayam  | Tamil Nadu | 626189  | 1234567890 | contact@giri.com     |
+|  4 | Karthick       | Raj      | Everywhere | Kochi        | Kerala     | 561489  | 3216549870 | contact@karthick.com |
++----+----------------+----------+------------+--------------+------------+---------+------------+----------------------+
+4 rows in set (0.04 sec)
+
+mysql> select LastName from addressbooks ORDER BY LastName;
++----------+
+| LastName |
++----------+
+| Dharan   |
+| Kumar    |
+| Raj      |
+| Raj      |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> select State from addressbooks ORDER BY State;
++------------+
+| State      |
++------------+
+| Tamil Nadu |
+| Tamil Nadu |
+| Tamil Nadu |
+| Kerala     |
++------------+
+4 rows in set (0.00 sec)
+
+mysql> Alter table addressbooks add Contact_Type char(100);
+Query OK, 0 rows affected (1.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressbooks;
++----+-------------+----------+------------+---------------+------------+---------+------------+----------------------+--------------+
+| id | FirstName   | LastName | Address    | city          | State      | ZipCode | PhoneNum   | Email                | Contact_Type |
++----+-------------+----------+------------+---------------+------------+---------+------------+----------------------+--------------+
+|  1 | Naveen      | Kumar    | New Road   | Sivakasi      | Tamil Nadu | 626123  | 789456123  | contact@naveen.com   | NULL         |
+|  2 | Hareesh     | Raj      | Old Road   | Virudhunagar  | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com  | NULL         |
+|  3 | Giri        | Dharan   | Nowhere    | Rajapalayam   | Tamil Nadu | 626189  | 1234567890 | contact@giri.com     | NULL         |
+|  4 | Karthick    | Raj      | Everywhere | Kochi         | Kerala     | 561489  | 3216549870 | contact@karthick.com | NULL         |
++----+-------------+----------+------------+---------------+------------+---------+------------+----------------------+--------------+
+4 rows in set (0.06 sec)
+
+mysql> Update addressbooks set Contact_Type ='Friends' where id = 3;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbooks;
++----+-------------+----------+-------------+---------------+------------+---------+------------+----------------------+--------------+
+| id | FirstName   | LastName | Address     | city          | State      | ZipCode | PhoneNum   | Email                | Contact_Type |
++----+-------------+----------+-------------+---------------+------------+---------+------------+----------------------+--------------+
+|  1 | Naveen      | Kumar    | New Road    | Sivakasi      | Tamil Nadu | 626123  | 789456123  | contact@naveen.com   | NULL         |
+|  2 | Hareesh     | Raj      | Old Road    | Virudhunagar  | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com  | NULL         |
+|  3 | Giri        | Dharan   | Nowhere     | Rajapalayam   | Tamil Nadu | 626189  | 1234567890 | contact@giri.com     | Friends      |
+|  4 | Karthick    | Raj      | Everywhere  | Kochi         | Kerala     | 561489  | 3216549870 | contact@karthick.com | NULL         |
++----+-------------+----------+-------------+---------------+------------+---------+------------+----------------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> Update addressbooks set Contact_Type ='Brother' where id = 2;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Update addressbooks set Contact_Type ='Best Friend' where id = 4;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Update addressbooks set Contact_Type ='Friend' where id = 1;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbooks;
++----+----------------+----------+-------------+---------------+------------+---------+------------+----------------------+--------------+
+| id | FirstName      | LastName | Address     | city          | State      | ZipCode | PhoneNum   | Email                | Contact_Type |
++----+----------------+----------+-------------+---------------+------------+---------+------------+----------------------+--------------+
+|  1 | Naveen         | Kumar    | New Road    | Sivakasi      | Tamil Nadu | 626123  | 789456123  | contact@naveen.com   | Friend       |
+|  2 | Hareesh        | Raj      | Old Road    | Virudhunagar  | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com  | Brother      |
+|  3 | Giri           | Dharan   | Nowhere     | Rajapalayam   | Tamil Nadu | 626189  | 1234567890 | contact@giri.com     | Friends      |
+|  4 | Karthick       | Raj      | Everywhere  | Kochi         | Kerala     | 561489  | 3216549870 | contact@karthick.com | Best Friend  |
++----+----------------+----------+-------------+---------------+------------+---------+------------+----------------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into addressbooks(FirstName, LastName, Address, City, State, ZipCode, PhoneNum, Email) values('Anto','Xavier','Sec-18','Alapi','Kerala','561789','1897359850','info@anty.com');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from addressbooks;
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+| id | FirstName   | LastName | Address    | city         | State      | ZipCode | PhoneNum   | Email                | Contact_Type |
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+|  1 | Naveen      | Kumar    | New Road   | Sivakasi     | Tamil Nadu | 626123  | 789456123  | contact@naveen.com   | Friend       |
+|  2 | Hareesh     | Raj      | Old Road   | Virudhunagar | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com  | Brother      |
+|  3 | Giri        | Dharan   | Nowhere    | Rajapalayam  | Tamil Nadu | 626189  | 1234567890 | contact@giri.com     | Friends      |
+|  4 | Karthick    | Raj      | Everywhere | Kochi        | Kerala     | 561489  | 3216549870 | contact@karthick.com | Best Friend  |
+|  5 | Anto        | Xavier   | Somewhere  | Alapi        | Kerala     | 561789  | 1897359850 | info@anty.com        | NULL         |
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+5 rows in set (0.01 sec)
+
+mysql> Delete from addressbooks
+    -> where FirstName = 'Giri';
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from addressbooks;
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+| id | FirstName   | LastName | Address    | city         | State      | ZipCode | PhoneNum   | Email                | Contact_Type |
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+|  1 | Naveen      | Kumar    | New Road   | Sivakasi     | Tamil Nadu | 626123  | 789456123  | contact@naveen.com   | Friend       |
+|  2 | Hareesh     | Raj      | Old Road   | Virudhunagar | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com  | Brother      |
+|  4 | Karthick    | Raj      | Everywhere | Kochi        | Kerala     | 561489  | 3216549870 | contact@karthick.com | Best Friend  |
+|  5 | Anto        | Xavier   | Somewhere  | Alapi        | Kerala     | 561789  | 1897359850 | info@anty.com        | NULL         |
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from addressbooks
+    -> where City = 'Virudhunagar';
++----+-----------+----------+-----------+--------------+------------+---------+------------+------------------------+--------------+
+| id | FirstName | LastName | Address   | city         | State      | ZipCode | PhoneNum   | Email                  | Contact_Type |
++----+-----------+----------+-----------+--------------+------------+---------+------------+------------------------+--------------+
+|  2 | Hareesh   | Raj      | Old Road  | Virudhunagar | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com    | Brother      |
++----+-----------+----------+-----------+--------------+------------+---------+------------+------------------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbooks
+    -> where State = 'Kerala';
++----+-----------+----------+-------------+--------+-----------+---------+------------+-----------------------------+--------------+
+| id | FirstName | LastName | Address     | city   | State     | ZipCode | PhoneNum   | Email                       | Contact_Type |
++----+-----------+----------+-------------+--------+-----------+---------+------------+-----------------------------+--------------+
+|  4 | Karthick  | Raj      | Everywhere  | Kochi  | Kerala    | 561489  | 3216549870 | contact@karthick.com        | Best Friend  |
+|  5 | Anto      | Xavier   | Somewhere    | Alapi | Kerala    | 561789  | 1897359850 | info@anty.com               | NULL         |
++----+-----------+----------+-------------+--------+-----------+---------+------------+-----------------------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select Count(*) from addressbooks where City = 'Kerala';
++----------+
+| Count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select Count(*) from addressbooks where City = 'Alapi';
++----------+
+| Count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select Count(*) from addressbooks where State = 'Kerala';
++----------+
+| Count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbooks
+    -> where FirstName like 'A%';
++----+-----------+----------+-----------+--------------+------------+---------+------------+---------------------+--------------+
+| id | FirstName | LastName | Address   | city         | State      | ZipCode | PhoneNum   | Email               | Contact_Type |
++----+-----------+----------+-----------+--------------+------------+---------+------------+---------------------+--------------+
+|  2 | Hareesh   | Raj      | Old Road  | Virudhunagar | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com | Brother      |
++----+-----------+----------+-----------+--------------+------------+---------+------------+---------------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbooks
+    -> where FirstName like 'C%';
++----+-------------+----------+------------+----------+------------+---------+------------+--------------------+--------------+
+| id | FirstName   | LastName | Address    | city     | State      | ZipCode | PhoneNum   | Email              | Contact_Type |
++----+-------------+----------+------------+----------+------------+---------+------------+--------------------+--------------+
+|  1 | Naveen      | Kumar    | New Road   | Sivakasi | Tamil Nadu | 626123  | 789456123  | contact@naveen.com | Friend       |
++----+-------------+----------+------------+----------+------------+---------+------------+--------------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbooks
+    -> where City like 'B%';
++----+-------------+----------+------------+----------+------------+---------+------------+--------------------+--------------+
+| id | FirstName   | LastName | Address    | city     | State      | ZipCode | PhoneNum   | Email              | Contact_Type |
++----+-------------+----------+------------+----------+------------+---------+------------+--------------------+--------------+
+|  1 | Naveen      | Kumar    | New Road   | Sivakasi | Tamil Nadu | 626123  | 789456123  | contact@naveen.com | Friend       |
++----+-------------+----------+------------+----------+------------+---------+------------+--------------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select Count(PhoneNum)
+    -> from addressbooks
+    -> where City = 'Sivakasi';
++-----------------+
+| Count(PhoneNum) |
++-----------------+
+|               1 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select Count(PhoneNum)
+    -> from addressbooks
+    -> where State = 'Tamil Nadu';
++-----------------+
+| Count(PhoneNum) |
++-----------------+
+|               2 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from addressbooks;
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+| id | FirstName   | LastName | Address    | city         | State      | ZipCode | PhoneNum   | Email                | Contact_Type |
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+|  1 | Naveen      | Kumar    | New Road   | Sivakasi     | Tamil Nadu | 626123  | 789456123  | contact@naveen.com   | Friend       |
+|  2 | Hareesh     | Raj      | Old Road   | Virudhunagar | Tamil Nadu | 626148  | 9876543210 | contact@hareesh.com  | Brother      |
+|  4 | Karthick    | Raj      | Everywhere | Kochi        | Kerala     | 561489  | 3216549870 | contact@karthick.com | Best Friend  |
+|  5 | Anto        | Xavier   | Somewhere  | Alapi        | Kerala     | 561789  | 1897359850 | info@anty.com        | NULL         |
++----+-------------+----------+------------+--------------+------------+---------+------------+----------------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql>
